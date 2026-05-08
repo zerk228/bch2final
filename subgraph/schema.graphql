@@ -1,0 +1,61 @@
+type Mint @entity(immutable: true) {
+  id: Bytes!
+  to: Bytes!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Burn @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes!
+  amount: BigInt!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Swap @entity(immutable: true) {
+  id: Bytes!
+  sender: Bytes!
+  tokenIn: Bytes!
+  amountIn: BigInt!
+  amountOut: BigInt!
+  to: Bytes!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type LiquidityChange @entity(immutable: true) {
+  id: Bytes!
+  sender: Bytes!
+  amount0: BigInt!
+  amount1: BigInt!
+  lp: BigInt!
+  isAdd: Boolean!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Proposal @entity {
+  id: ID!
+  proposer: Bytes!
+  description: String!
+  startBlock: BigInt!
+  endBlock: BigInt!
+  forVotes: BigInt!
+  againstVotes: BigInt!
+  abstainVotes: BigInt!
+}
+
+type Vote @entity(immutable: true) {
+  id: Bytes!
+  voter: Bytes!
+  proposalId: BigInt!
+  support: Int!
+  weight: BigInt!
+  blockTimestamp: BigInt!
+}

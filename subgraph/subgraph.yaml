@@ -1,0 +1,76 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum/contract
+    name: RWAToken
+    network: arbitrum-sepolia
+    source:
+      address: "0x0000000000000000000000000000000000000000"
+      abi: RWATokenV1
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Mint
+        - Burn
+        - RoleChange
+      abis:
+        - name: RWATokenV1
+          file: ./abis/RWATokenV1.json
+      eventHandlers:
+        - event: Minted(indexed address,uint256)
+          handler: handleMint
+        - event: Burned(indexed address,uint256)
+          handler: handleBurn
+      file: ./mapping.ts
+  - kind: ethereum/contract
+    name: SimpleAMM
+    network: arbitrum-sepolia
+    source:
+      address: "0x0000000000000000000000000000000000000000"
+      abi: SimpleAMM
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Swap
+        - LiquidityChange
+      abis:
+        - name: SimpleAMM
+          file: ./abis/SimpleAMM.json
+      eventHandlers:
+        - event: Swap(indexed address,address,uint256,uint256,address)
+          handler: handleSwap
+        - event: Mint(indexed address,uint256,uint256,uint256)
+          handler: handleAddLiq
+        - event: Burn(indexed address,uint256,uint256,uint256,address)
+          handler: handleRemoveLiq
+      file: ./mapping.ts
+  - kind: ethereum/contract
+    name: Governor
+    network: arbitrum-sepolia
+    source:
+      address: "0x0000000000000000000000000000000000000000"
+      abi: MyGovernor
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Proposal
+        - Vote
+      abis:
+        - name: MyGovernor
+          file: ./abis/MyGovernor.json
+      eventHandlers:
+        - event: ProposalCreated(uint256,address,address[],uint256[],string[],bytes[],uint256,uint256,string)
+          handler: handleProposalCreated
+        - event: VoteCast(indexed address,uint256,uint8,uint256,string)
+          handler: handleVoteCast
+      file: ./mapping.ts
