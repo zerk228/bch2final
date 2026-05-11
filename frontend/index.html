@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>RWA Tokenization Platform</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; color: #111; }
+      h1 { font-size: 1.4rem; }
+      h2 { font-size: 1.1rem; margin-top: 1.5rem; border-bottom: 1px solid #ddd; padding-bottom: 4px; }
+      button { padding: 6px 14px; cursor: pointer; }
+      input { padding: 6px; width: 220px; }
+      .row { display: flex; gap: 12px; align-items: center; margin: 8px 0; flex-wrap: wrap; }
+      .err { color: #b00; background: #fee; padding: 6px 10px; border-radius: 4px; margin-top: 8px; }
+      .ok { color: #060; background: #efe; padding: 6px 10px; border-radius: 4px; margin-top: 8px; }
+      .pill { display: inline-block; padding: 2px 8px; border-radius: 10px; background: #eef; font-size: 0.85rem; }
+      table { border-collapse: collapse; width: 100%; font-size: 0.9rem; }
+      td, th { border-bottom: 1px solid #ddd; padding: 4px 6px; text-align: left; }
+      code { background: #f5f5f5; padding: 2px 4px; border-radius: 3px; }
+    </style>
+  </head>
+  <body>
+    <h1>RWA Tokenization Platform <span class="pill" id="net">disconnected</span></h1>
+    <div class="row">
+      <button id="connect">Connect MetaMask</button>
+      <span id="acct"></span>
+    </div>
+    <div id="status"></div>
+
+    <h2>Balances & Voting</h2>
+    <div>RWA balance: <code id="rwaBal">-</code></div>
+    <div>Vault shares: <code id="vBal">-</code></div>
+    <div>Voting power: <code id="vp">-</code></div>
+    <div>Delegate: <code id="dlg">-</code></div>
+    <div>AMM reserves: <code id="res">-</code></div>
+
+    <h2>Swap</h2>
+    <div class="row">
+      <input id="swapAmt" placeholder="amount in (wei)" />
+      <button id="swap">Swap RWA → GOV</button>
+    </div>
+
+    <h2>Vault</h2>
+    <div class="row">
+      <input id="depAmt" placeholder="assets" />
+      <button id="dep">Deposit</button>
+    </div>
+
+    <h2>Proposals (from Subgraph)</h2>
+    <table id="proposals">
+      <thead><tr><th>ID</th><th>Description</th><th>State</th><th>For</th><th>Against</th><th></th></tr></thead>
+      <tbody></tbody>
+    </table>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
